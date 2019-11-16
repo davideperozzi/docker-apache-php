@@ -38,3 +38,8 @@ RUN echo "upload_max_filesize = 1G" >> /usr/local/etc/php/conf.d/upload_large_du
 
 # Change uid and gid of apache to docker user uid/gid
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+ENV COMPOSER_ALLOW_SUPERUSER 1
+RUN composer config --global repo.packagist composer https://packagist.org
